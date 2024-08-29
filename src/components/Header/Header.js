@@ -46,13 +46,13 @@ export default function Header(){
                 <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
                     <ul className="flex flex-col space-y-2 p-4">
                         <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Home</a>
+                            <a href="#" className="text-gray-300 hover:text-white">Livros</a>
                         </li>
                         <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Sobre</a>
+                            <a href="#" className="text-gray-300 hover:text-white">Autores</a>
                         </li>
                         <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Serviços</a>
+                            <a href="#" className="text-gray-300 hover:text-white">Editoras</a>
                         </li>
                     </ul>
                 </div>
