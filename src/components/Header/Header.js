@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react";
+import NavList from "../NavList/NavList";
 
 export default function Header(){
     const [isOpen, setIsOpen] = useState(false);
@@ -11,21 +12,11 @@ export default function Header(){
 
     return(
         <header>
-            <nav className="bg-gray-800 p-4">
+            <nav className="bg-black p-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <h1 className="text-white font-bold text-xl">Gerenciador de livros</h1>
 
-                    <ul className="hidden md:flex space-x-4">
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Livros</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Autores</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Editoras</a>
-                        </li>
-                    </ul>
+                    <NavList estilo="hidden md:flex space-x-4"/>
 
                     <div className="md:hidden">
                         <button onClick={toggleMenu} className="text-white focus:outline-none">
@@ -44,17 +35,7 @@ export default function Header(){
                 </div>
 
                 <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <ul className="flex flex-col space-y-2 p-4">
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Livros</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Autores</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Editoras</a>
-                        </li>
-                    </ul>
+                    <NavList estilo="flex flex-col space-y-2 p-4"/>
                 </div>
             </nav>
         </header>
