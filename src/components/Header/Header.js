@@ -16,9 +16,15 @@ export default function Header(){
                     <h1 className="text-white font-bold text-xl">Gerenciador de livros</h1>
 
                     <ul className="hidden md:flex space-x-4">
-                        <li><a href="#" className="text-gray-300 hover:text-white">Livros</a></li>
-                        <li><a href="#" className="text-gray-300 hover:text-white">Autores</a></li>
-                        <li><a href="#" className="text-gray-300 hover:text-white">Editoras</a></li>
+                        <li>
+                            <a href="#" className="text-gray-300 hover:text-white">Livros</a>
+                        </li>
+                        <li>
+                            <a href="#" className="text-gray-300 hover:text-white">Autores</a>
+                        </li>
+                        <li>
+                            <a href="#" className="text-gray-300 hover:text-white">Editoras</a>
+                        </li>
                     </ul>
 
                     <div className="md:hidden">
@@ -39,12 +45,17 @@ export default function Header(){
 
                     {isOpen && (
                         <div className="md:hidden">
-                        <ul className="flex flex-col space-y-2 p-4">
-                            <li><a href="#" className="text-gray-300 hover:text-white">Home</a></li>
-                            <li><a href="#" className="text-gray-300 hover:text-white">Sobre</a></li>
-                            <li><a href="#" className="text-gray-300 hover:text-white">Serviços</a></li>
-                            <li><a href="#" className="text-gray-300 hover:text-white">Contato</a></li>
-                        </ul>
+                            <ul className="flex flex-col space-y-2 p-4">
+                                <li>
+                                    <a href="#" className="text-gray-300 hover:text-white">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" className="text-gray-300 hover:text-white">Sobre</a>
+                                </li>
+                                <li>
+                                    <a href="#" className="text-gray-300 hover:text-white">Serviços</a>
+                                </li>
+                            </ul>
                         </div>
                     )}
             </nav>
