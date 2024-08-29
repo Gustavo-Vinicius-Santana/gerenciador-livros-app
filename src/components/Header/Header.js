@@ -54,9 +54,6 @@ export default function Header(){
                         <li>
                             <a href="#" className="text-gray-300 hover:text-white">Serviços</a>
                         </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Contato</a>
-                        </li>
                     </ul>
                 </div>
             </nav>
