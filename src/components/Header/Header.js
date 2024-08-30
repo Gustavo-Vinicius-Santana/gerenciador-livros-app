@@ -14,7 +14,7 @@ export default function Header(){
         <header>
             <nav className="bg-black p-4">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-white font-bold text-xl">Gerenciador de livros</h1>
+                    <h1 className="text-white font-bold text-2xl"><a href={`/`}>Gerenciador de livros</a></h1>
 
                     <NavList estilo="hidden md:flex space-x-4"/>
 
