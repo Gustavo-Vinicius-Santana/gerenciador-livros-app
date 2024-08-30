@@ -1,22 +1,54 @@
 import React, { useState } from "react";
+import { createLivro } from "../../../services/LivroService";
 
 export default function LivrosCadastro(){
-    const [title, setTitle] = useState('');
-    const [summary, setSummary] = useState('');
-    const [author, setAuthor] = useState('');
-    const [publisher, setPublisher] = useState('');
+    const [titulo, setTitulo] = useState('');
+    const [resumo, setResumo] = useState('');
+    const [autorId, setAutorId] = useState('');
+    const [anoLancamento, setAnoLancamento] = useState('');
+    const [editoraId, setEditoraId] = useState('');
+    const [mensagem, setMensagem] = useState('');
 
     // Exemplo de dados para os selects
-    const authors = ['Autor 1', 'Autor 2', 'Autor 3'];
-    const publishers = ['Editora 1', 'Editora 2', 'Editora 3'];
+    const authors = [
+            {'id': 1, 'nome': 'tolkien'},
+            {'id': 2, 'nome':'jk rolling'},
+    ];
+    const publishers = [
+        {'id': 1, 'nome': 'harper collins'},
+        {'id': 2, 'nome':'rocco'},
+    ];
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Aqui você pode adicionar a lógica para enviar os dados do formulário
-      console.log({ title, summary, author, publisher });
-    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setMensagem('');
+
+        const novoLivro = {
+          titulo,
+          resumo,
+          ano_lancamento: anoLancamento,
+          autores_id: autorId,
+          editoras_id: editoraId,
+        };
+
+        console.log(novoLivro);
+
+        try {
+          await createLivro(novoLivro); // Chama o serviço para criar o livro
+          setMensagem('Livro cadastrado com sucesso!');
+          // Limpar os campos após o cadastro
+          setTitulo('');
+          setResumo('');
+          setAutorId('');
+          setEditoraId('');
+        } catch (error) {
+          console.error('Erro ao cadastrar o livro:', error);
+          setMensagem('Erro ao cadastrar o livro. Tente novamente.');
+        }
+      };
     return(
         <main>
+            <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Cadastro de Livro</h1>
@@ -28,8 +60,8 @@ export default function LivrosCadastro(){
                         <input
                         id="title"
                         type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
                         placeholder="Digite o título do livro"
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                         required
@@ -41,11 +73,26 @@ export default function LivrosCadastro(){
                         </label>
                         <textarea
                         id="summary"
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
+                        value={resumo}
+                        onChange={(e) => setResumo(e.target.value)}
                         placeholder="Digite o resumo do livro"
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                         rows="4"
+                        required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="lancamento" className="block text-gray-700 font-medium mb-2">
+                        ano de lançamento
+                        </label>
+                        <input
+                        id="lancamento"
+                        type="text"
+                        value={anoLancamento}
+                        onChange={(e) => setAnoLancamento(e.target.value)}
+                        placeholder="Digite o ano de lançamento do livro"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                         required
                         />
                     </div>
@@ -55,14 +102,14 @@ export default function LivrosCadastro(){
                         </label>
                         <select
                         id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
+                        value={autorId}
+                        onChange={(e) => setAutorId(e.target.value)}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                         required
                         >
                         <option value="" disabled>Selecione o autor</option>
                         {authors.map((author, index) => (
-                            <option key={index} value={author}>{author}</option>
+                            <option key={index} value={author.id}>{author.nome}</option>
                         ))}
                         </select>
                     </div>
@@ -72,14 +119,14 @@ export default function LivrosCadastro(){
                         </label>
                         <select
                         id="publisher"
-                        value={publisher}
-                        onChange={(e) => setPublisher(e.target.value)}
+                        value={editoraId}
+                        onChange={(e) => setEditoraId(e.target.value)}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                         required
                         >
                         <option value="" disabled>Selecione a editora</option>
                         {publishers.map((publisher, index) => (
-                            <option key={index} value={publisher}>{publisher}</option>
+                            <option key={index} value={publisher.id}>{publisher.nome}</option>
                         ))}
                         </select>
                     </div>

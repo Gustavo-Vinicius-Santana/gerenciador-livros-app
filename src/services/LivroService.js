@@ -9,3 +9,12 @@ export const getLivros = async() => {
         throw error;
     }
 }
+
+export const createLivro = async (livro) => {
+    try {
+      const response = await api.post('/livro', livro);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
