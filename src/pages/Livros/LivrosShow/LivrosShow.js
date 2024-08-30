@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { getLivros } from '../../../services/LivroService';
 
 export default function LivrosShow(){
-
-    const fetchBooks = async () => {
-        // Simulação de dados, substitua com chamada à sua API real
-        return [
-            { id: 1, title: 'Livro 1', summary: 'Resumo do livro 1', author: 'Autor 1', publisher: 'Editora 1' },
-            { id: 2, title: 'Livro 2', summary: 'Resumo do livro 2', author: 'Autor 2', publisher: 'Editora 2' },
-            { id: 3, title: 'Livro 3', summary: 'Resumo do livro 3', author: 'Autor 3', publisher: 'Editora 3' },
-        ];
-    };
     const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      const loadBooks = async () => {
-        const booksData = await fetchBooks();
-        setBooks(booksData);
-      };
+        const fetchLivros = async () => {
+            try {
+                const data = await getLivros(); // Chama o service para buscar os livros
+                setBooks(data); // Atualiza o estado com a lista de livros
+            } catch (error) {
+                console.error('Erro ao buscar livros:', error);
+            } finally {
+                setLoading(false); // Finaliza o estado de loading
+            }
+        };
 
-      loadBooks();
+      fetchLivros();
     }, []);
+
+    if (loading) return <p>Carregando...</p>;
 
     return(
         <main>
@@ -29,10 +30,11 @@ export default function LivrosShow(){
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {books.map((book) => (
                         <div key={book.id} className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
-                        <p className="text-gray-700 mb-4">{book.summary}</p>
-                        <p className="text-gray-600">Autor: {book.author}</p>
-                        <p className="text-gray-600">Editora: {book.publisher}</p>
+                        <h2 className="text-xl font-semibold mb-2">{book.titulo}</h2>
+                        <p className="text-gray-700 mb-4">{book.resumo}</p>
+                        <p className="text-gray-700 mb-4">{book.ano_lancamento}</p>
+                        <p className="text-gray-600">Autor: {book.autores_id}</p>
+                        <p className="text-gray-600">Editora: {book.editoras_id}</p>
                         </div>
                     ))}
                     </div>
