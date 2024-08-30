@@ -4,9 +4,9 @@ import './index.css';
 
 import Header from './components/Header/Header';
 import Inicial from './pages/Inicial/Inicial';
-import LivrosBusca from "./pages/LivrosBusca/LivrosBusca";
-import LivrosCadastro from "./pages/LivrosCadastro/LivrosCadastro";
-import LivrosShow from "./pages/LivrosShow/LivrosShow";
+import LivrosBusca from "./pages/Livros/LivrosBusca/LivrosBusca";
+import LivrosCadastro from "./pages/Livros/LivrosCadastro/LivrosCadastro";
+import LivrosShow from "./pages/Livros/LivrosShow/LivrosShow";
 
 import {
   createBrowserRouter,
