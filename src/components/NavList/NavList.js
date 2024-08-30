@@ -41,9 +41,9 @@ export default function NavList({estilo}){
                             Editoras
                         </span>}
                     inline>
-                    <Dropdown.Item className="hover:underline">cadastrar</Dropdown.Item>
-                    <Dropdown.Item className="hover:underline">pesquisar</Dropdown.Item>
-                    <Dropdown.Item className="hover:underline">mostrar todos</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/editora/cadastro`}>cadastrar</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/editora/busca`}>pesquisar</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/editora`}>mostrar todos</Dropdown.Item>
                 </Dropdown>
             </li>
         </ul>
