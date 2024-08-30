@@ -15,6 +15,11 @@ import EditoraBusca from './pages/Editoras/EditorasBusca/EditoraBusca';
 import EditoraCadastro from './pages/Editoras/EditorasCadastro/EditoraCadastro';
 import EditoraShow from './pages/Editoras/EditorasShow/EditoraShow';
 
+// paginas autores
+import AutorBusca from './pages/Autores/AutoresBusca/AutorBusca';
+import AutorCadastro from './pages/Autores/AutoresCadastro/AutorCadastro';
+import AutoresShow from './pages/Autores/AutoresShow/AutoresShow';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -37,6 +42,7 @@ const router = createBrowserRouter([
     path: "/livro/cadastro",
     element: <LivrosCadastro />,
   },
+
   {
     path: "/editora",
     element: <EditoraShow />,
@@ -48,6 +54,19 @@ const router = createBrowserRouter([
   {
     path: "/editora/cadastro",
     element: <EditoraCadastro />,
+  },
+
+  {
+    path: "/autor",
+    element: <AutoresShow />,
+  },
+  {
+    path: "/autor/busca",
+    element: <AutorBusca />,
+  },
+  {
+    path: "/autor/cadastro",
+    element: <AutorCadastro />,
   },
 ]);
 

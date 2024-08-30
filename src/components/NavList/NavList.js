@@ -28,9 +28,9 @@ export default function NavList({estilo}){
                             Autores
                         </span>}
                     inline>
-                    <Dropdown.Item className="hover:underline">cadastrar</Dropdown.Item>
-                    <Dropdown.Item className="hover:underline">pesquisar</Dropdown.Item>
-                    <Dropdown.Item className="hover:underline">mostrar todos</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/autor/cadastro`}>cadastrar</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/autor/busca`}>pesquisar</Dropdown.Item>
+                    <Dropdown.Item className="hover:underline" as="a" href={`/autor`}>mostrar todos</Dropdown.Item>
                 </Dropdown>
             </li>
             <li>
