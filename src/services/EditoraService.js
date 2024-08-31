@@ -19,3 +19,12 @@ export const createEditora = async(editora) => {
         throw error;
     }
 }
+
+export const searchEditora = async (name) => {
+    try{
+        const response = await api.get(`/editoras/busca?nome=${name}`);
+        return response.data;
+    } catch (error){
+        throw error;
+    }
+}
