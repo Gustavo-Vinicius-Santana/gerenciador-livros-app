@@ -1,16 +1,35 @@
 import React, { useState } from "react";
+import { createAutor } from "../../../services/AutorService";
 
 export default function AutorCadastro(){
     const [name, setName] = useState('');
+    const [mensagem, setMensagem] = useState('');
 
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Aqui você pode adicionar a lógica para enviar os dados do formulário
-      console.log({ name });
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setMensagem('');
+
+        const novoAutor = {
+            'nome': name
+        };
+
+        console.log(novoAutor);
+
+        try {
+          await createAutor(novoAutor); // Chama o serviço para criar o livro
+          setMensagem('Autor cadastrado com sucesso!');
+          // Limpar os campos após o cadastro
+          setName('');
+        } catch (error) {
+          console.error('Erro ao cadastrar o autor:', error);
+          setMensagem('Erro ao cadastrar o autor. Tente novamente.');
+        }
     };
+
     return(
         <main>
+            <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Cadastro de Autor</h1>

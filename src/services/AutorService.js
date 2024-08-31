@@ -9,3 +9,13 @@ export const getAutores = async() => {
         throw error;
     }
 }
+
+export const createAutor = async(autor) => {
+    try{
+        const response = await api.post('/autor', autor);
+        return response.data;
+    }
+    catch(error){
+        throw error;
+    }
+}
