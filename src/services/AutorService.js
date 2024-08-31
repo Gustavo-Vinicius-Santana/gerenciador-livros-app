@@ -19,3 +19,12 @@ export const createAutor = async(autor) => {
         throw error;
     }
 }
+
+export const searchAutor = async (name) => {
+    try{
+        const response = await api.get(`/autores/busca?nome=${name}`);
+        return response.data;
+    } catch (error){
+        throw error;
+    }
+}
