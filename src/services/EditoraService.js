@@ -9,3 +9,13 @@ export const getEditoras = async() => {
         throw error;
     }
 }
+
+export const createEditora = async(editora) => {
+    try{
+        const response = await api.post('/editora', editora);
+        return response.data;
+    }
+    catch(error){
+        throw error;
+    }
+}
