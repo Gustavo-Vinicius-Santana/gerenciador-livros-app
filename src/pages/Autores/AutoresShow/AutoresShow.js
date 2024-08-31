@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { getAutores } from '../../../services/AutorService';
 
 export default function AutoresShow(){
-
-    const fetchAutores = async () => {
-        // Simulação de dados, substitua com chamada à sua API real
-        return [
-            { id: 1, name: 'autor 1' },
-            { id: 2, name: 'autor 2' },
-            { id: 3, name: 'autor 3' },
-        ];
-    };
-    const [ autores, setAutores] = useState([]);
+    const [autores, setAutores] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      const loadautores = async () => {
-        const autoresData = await fetchAutores();
-        setAutores(autoresData);
-      };
+        const fetchAutores = async () => {
+            try {
+                const data = await getAutores(); // Chama o service para buscar os livros
+                setAutores(data); // Atualiza o estado com a lista de livros
+            } catch (error) {
+                console.error('Erro ao buscar autores:', error);
+            } finally {
+                setLoading(false); // Finaliza o estado de loading
+            }
+        };
 
-      loadautores();
+      fetchAutores();
     }, []);
+
+    if (loading) return <p>Carregando...</p>;
 
     return(
         <main>
@@ -29,7 +30,7 @@ export default function AutoresShow(){
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {autores.map((autor) => (
                         <div key={autor.id} className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-semibold mb-2">{autor.name}</h2>
+                        <h2 className="text-xl font-semibold mb-2">{autor.nome }</h2>
                         </div>
                     ))}
                     </div>
