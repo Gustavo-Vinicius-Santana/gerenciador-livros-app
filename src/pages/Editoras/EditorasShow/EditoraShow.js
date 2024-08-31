@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { getEditoras } from "../../../services/EditoraService";
 
 export default function EditoraShow(){
-
-    const fetchEditoras = async () => {
-        // Simulação de dados, substitua com chamada à sua API real
-        return [
-            { id: 1, name: 'Editora 1' },
-            { id: 2, name: 'Editora 2' },
-            { id: 3, name: 'Editora 3' },
-        ];
-    };
-    const [ editoras, setEditoras] = useState([]);
+    const [editoras, setEditoras] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      const loadEditoras = async () => {
-        const EditorasData = await fetchEditoras();
-        setEditoras(EditorasData);
-      };
+        const fetchEditoras = async () => {
+            try {
+                const data = await getEditoras(); // Chama o service para buscar os livros
+                setEditoras(data);
+                console.log(data) // Atualiza o estado com a lista de livros
+            } catch (error) {
+                console.error('Erro ao buscar editoras:', error);
+            } finally {
+                setLoading(false); // Finaliza o estado de loading
+            }
+        };
 
-      loadEditoras();
+      fetchEditoras();
     }, []);
+
+    if (loading) return <p>Carregando...</p>;
 
     return(
         <main>
@@ -29,7 +31,7 @@ export default function EditoraShow(){
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {editoras.map((editora) => (
                         <div key={editora.id} className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-semibold mb-2">{editora.name}</h2>
+                        <h2 className="text-xl font-semibold mb-2">{editora.nome}</h2>
                         </div>
                     ))}
                     </div>
