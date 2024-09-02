@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Datepicker } from "flowbite-react";
 import { createLivro } from "../../../services/LivroService";
+import { getEditoras } from "../../../services/EditoraService";
+import { getAutores } from "../../../services/AutorService";
 
 export default function LivrosCadastro(){
+    // states dos autores e editoras
+    const [autores, setAutores] = useState([]);
+    const [editoras, setEditoras] = useState([]);
+    const [loading, setLoading] = useState(true);
+    // states do cadastro do livro
     const [titulo, setTitulo] = useState('');
     const [resumo, setResumo] = useState('');
     const [autorId, setAutorId] = useState('');
@@ -16,16 +23,6 @@ export default function LivrosCadastro(){
         const yearOnly = dateObject.getFullYear(); // Extrai somente o ano
         setAnoLancamento(yearOnly);
       };
-
-    // Exemplo de dados para os selects
-    const authors = [
-            {'id': 1, 'nome': 'tolkien'},
-            {'id': 2, 'nome':'jk rolling'},
-    ];
-    const publishers = [
-        {'id': 1, 'nome': 'harper collins'},
-        {'id': 2, 'nome':'rocco'},
-    ];
 
     const today = new Date().toISOString().split('T')[0];
     const handleSubmit = async (event) => {
@@ -56,6 +53,36 @@ export default function LivrosCadastro(){
           setMensagem('Erro ao cadastrar o livro. Tente novamente.');
         }
       };
+
+      useEffect(() => {
+        const fetchAutores = async () => {
+            try {
+                const data = await getAutores(); // Chama o service para buscar os livros
+                setAutores(data); // Atualiza o estado com a lista de livros
+            } catch (error) {
+                console.error('Erro ao buscar autores:', error);
+            } finally {
+                setLoading(false); // Finaliza o estado de loading
+            }
+        };
+
+        const fetchEditoras = async () => {
+            try {
+                const data = await getEditoras(); // Chama o service para buscar os livros
+                setEditoras(data);
+                console.log(data) // Atualiza o estado com a lista de livros
+            } catch (error) {
+                console.error('Erro ao buscar editoras:', error);
+            } finally {
+                setLoading(false); // Finaliza o estado de loading
+            }
+        };
+
+      fetchAutores();
+      fetchEditoras();
+    }, []);
+
+      if (loading) return <p>Carregando...</p>;
     return(
         <main>
             <div><h1>{mensagem}</h1></div>
@@ -114,8 +141,8 @@ export default function LivrosCadastro(){
                         required
                         >
                         <option value="" disabled>Selecione o autor</option>
-                        {authors.map((author, index) => (
-                            <option key={index} value={author.id}>{author.nome}</option>
+                        {autores.map((autor, index) => (
+                            <option key={index} value={autor.id}>{autor.nome}</option>
                         ))}
                         </select>
                     </div>
@@ -131,8 +158,8 @@ export default function LivrosCadastro(){
                         required
                         >
                         <option value="" disabled>Selecione a editora</option>
-                        {publishers.map((publisher, index) => (
-                            <option key={index} value={publisher.id}>{publisher.nome}</option>
+                        {editoras.map((editora, index) => (
+                            <option key={index} value={editora.id}>{editora.nome}</option>
                         ))}
                         </select>
                     </div>
