@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Datepicker } from "flowbite-react";
 import { createLivro } from "../../../services/LivroService";
 
 export default function LivrosCadastro(){
@@ -8,6 +9,13 @@ export default function LivrosCadastro(){
     const [anoLancamento, setAnoLancamento] = useState('');
     const [editoraId, setEditoraId] = useState('');
     const [mensagem, setMensagem] = useState('');
+
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value; // Ex: "2024-09-01"
+        const dateObject = new Date(selectedDate);
+        const yearOnly = dateObject.getFullYear(); // Extrai somente o ano
+        setAnoLancamento(yearOnly);
+      };
 
     // Exemplo de dados para os selects
     const authors = [
@@ -19,6 +27,7 @@ export default function LivrosCadastro(){
         {'id': 2, 'nome':'rocco'},
     ];
 
+    const today = new Date().toISOString().split('T')[0];
     const handleSubmit = async (event) => {
         event.preventDefault();
         setMensagem('');
@@ -41,6 +50,7 @@ export default function LivrosCadastro(){
           setResumo('');
           setAutorId('');
           setEditoraId('');
+          setAnoLancamento('');
         } catch (error) {
           console.error('Erro ao cadastrar o livro:', error);
           setMensagem('Erro ao cadastrar o livro. Tente novamente.');
@@ -86,15 +96,11 @@ export default function LivrosCadastro(){
                         <label htmlFor="lancamento" className="block text-gray-700 font-medium mb-2">
                         ano de lançamento
                         </label>
-                        <input
-                        id="lancamento"
-                        type="text"
-                        value={anoLancamento}
-                        onChange={(e) => setAnoLancamento(e.target.value)}
-                        placeholder="Digite o ano de lançamento do livro"
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                        required
-                        />
+                        <div className="flex flex-col">
+                            <input type="date"
+                            onChange={handleDateChange}
+                            max={today} />
+                        </div>
                     </div>
                     <div>
                         <label htmlFor="author" className="block text-gray-700 font-medium mb-2">
