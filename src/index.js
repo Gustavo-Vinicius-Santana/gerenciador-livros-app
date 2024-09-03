@@ -9,6 +9,7 @@ import Inicial from './pages/Inicial/Inicial';
 import LivrosBusca from "./pages/Livros/LivrosBusca/LivrosBusca";
 import LivrosCadastro from "./pages/Livros/LivrosCadastro/LivrosCadastro";
 import LivrosShow from "./pages/Livros/LivrosShow/LivrosShow";
+import LivroEdit from './pages/Livros/LivroEdit/LivroEdit';
 
 // paginas editoras
 import EditoraBusca from './pages/Editoras/EditorasBusca/EditoraBusca';
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/livro/cadastro",
     element: <LivrosCadastro />,
+  },
+  {
+    path: "/livro/editar/:id",
+    element: <LivroEdit />,
   },
 
   {

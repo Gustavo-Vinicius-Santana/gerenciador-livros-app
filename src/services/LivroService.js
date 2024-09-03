@@ -10,6 +10,15 @@ export const getLivros = async() => {
     }
 }
 
+export const getLivroById = async (id) => {
+    try {
+      const response = await api.get(`/livro/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 export const createLivro = async (livro) => {
     try {
       const response = await api.post('/livro', livro);
@@ -18,6 +27,15 @@ export const createLivro = async (livro) => {
       throw error;
     }
 }
+
+export const editLivro = async (id, livro) => {
+    try {
+      const response = await api.put(`/livro/${id}`, livro);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
 
 export const searchLivro = async (nome) => {
     try{
