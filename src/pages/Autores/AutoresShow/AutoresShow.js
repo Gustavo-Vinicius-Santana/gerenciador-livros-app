@@ -3,6 +3,7 @@ import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 import { getAutores } from '../../../services/AutorService';
+import { deleteAutor } from "../../../services/AutorService";
 
 export default function AutoresShow(){
     const navigate = useNavigate();
@@ -38,6 +39,16 @@ export default function AutoresShow(){
       fetchAutores();
     }, []);
 
+    const handleDelete = async () => {
+        try {
+          await deleteAutor(selectedAutor.id);
+          window.location.reload();
+        } catch (error) {
+          console.error('Erro ao deletar a editora:', error);
+          alert('Erro ao deletar a editora. Tente novamente.');
+        }
+    };
+
 
     if (loading) return <p>Carregando...</p>;
     return(
@@ -68,7 +79,7 @@ export default function AutoresShow(){
                                 <div className="w-full flex justify-between p-4">
                                     <button
                                         className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                                        onClick={() => alert('Deletar')}
+                                        onClick={handleDelete}
                                     >
                                         Deletar
                                     </button>

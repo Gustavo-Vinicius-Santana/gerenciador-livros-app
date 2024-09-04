@@ -46,3 +46,12 @@ export const searchAutor = async (name) => {
         throw error;
     }
 }
+
+export const deleteAutor = async (id) => {
+    try {
+      const response = await api.delete(`/autor/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+};
