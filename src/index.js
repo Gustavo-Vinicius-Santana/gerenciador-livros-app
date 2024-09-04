@@ -15,6 +15,7 @@ import LivroEdit from './pages/Livros/LivroEdit/LivroEdit';
 import EditoraBusca from './pages/Editoras/EditorasBusca/EditoraBusca';
 import EditoraCadastro from './pages/Editoras/EditorasCadastro/EditoraCadastro';
 import EditoraShow from './pages/Editoras/EditorasShow/EditoraShow';
+import EditoraEdit from './pages/Editoras/EditoraEdit/EditoraEdit';
 
 // paginas autores
 import AutorBusca from './pages/Autores/AutoresBusca/AutorBusca';
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/editora/cadastro",
     element: <EditoraCadastro />,
+  },
+  {
+    path: "/editora/editar/:id",
+    element: <EditoraEdit />,
   },
 
   {
