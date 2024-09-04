@@ -45,3 +45,12 @@ export const searchLivro = async (nome) => {
         throw error;
     }
 }
+
+export const deleteLivro = async (id) => {
+    try {
+      const response = await api.delete(`/livro/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+};

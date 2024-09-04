@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+
 import { getLivros } from '../../../services/LivroService';
+import { deleteLivro } from '../../../services/LivroService';
 
 export default function LivrosShow(){
     const navigate = useNavigate();
@@ -35,6 +37,15 @@ export default function LivrosShow(){
       fetchLivros();
     }, []);
 
+    const handleDelete = async () => {
+        try {
+          await deleteLivro(selectedBook.id);
+          window.location.reload();
+        } catch (error) {
+          console.error('Erro ao deletar o livro:', error);
+          alert('Erro ao deletar o livro. Tente novamente.');
+        }
+      };
 
 
     if (loading) return <p>Carregando...</p>;
@@ -78,7 +89,7 @@ export default function LivrosShow(){
                                 <div className="w-full flex justify-between p-4">
                                     <button
                                         className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                                        onClick={() => alert('Deletar')}
+                                        onClick={handleDelete}
                                     >
                                         Deletar
                                     </button>
