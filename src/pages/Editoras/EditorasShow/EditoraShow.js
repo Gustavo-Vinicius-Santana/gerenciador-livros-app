@@ -3,6 +3,7 @@ import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 import { getEditoras } from "../../../services/EditoraService";
+import { deleteEditora } from "../../../services/EditoraService";
 
 export default function EditoraShow(){
     const navigate = useNavigate();
@@ -39,6 +40,17 @@ export default function EditoraShow(){
       fetchEditoras();
     }, []);
 
+    const handleDelete = async () => {
+        try {
+          await deleteEditora(selectedEditora.id);
+          window.location.reload();
+        } catch (error) {
+          console.error('Erro ao deletar a editora:', error);
+          alert('Erro ao deletar a editora. Tente novamente.');
+        }
+    };
+
+
     if (loading) return <p>Carregando...</p>;
 
     return(
@@ -69,7 +81,7 @@ export default function EditoraShow(){
                                 <div className="w-full flex justify-between p-4">
                                     <button
                                         className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                                        onClick={() => alert('Deletar')}
+                                        onClick={handleDelete}
                                     >
                                         Deletar
                                     </button>

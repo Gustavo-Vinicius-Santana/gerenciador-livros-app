@@ -46,3 +46,12 @@ export const searchEditora = async (name) => {
         throw error;
     }
 }
+
+export const deleteEditora = async (id) => {
+    try {
+      const response = await api.delete(`/editora/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+};
