@@ -21,6 +21,7 @@ import EditoraEdit from './pages/Editoras/EditoraEdit/EditoraEdit';
 import AutorBusca from './pages/Autores/AutoresBusca/AutorBusca';
 import AutorCadastro from './pages/Autores/AutoresCadastro/AutorCadastro';
 import AutoresShow from './pages/Autores/AutoresShow/AutoresShow';
+import AutorEdit from './pages/Autores/AutorEdit/AutorEdit';
 
 import {
   createBrowserRouter,
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: "/autor/cadastro",
     element: <AutorCadastro />,
+  },
+  {
+    path: "/autor/editar/:id",
+    element: <AutorEdit />,
   },
 ]);
 

@@ -10,6 +10,15 @@ export const getAutores = async() => {
     }
 }
 
+export const getAutorById = async (id) => {
+    try {
+      const response = await api.get(`/autor/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+}
+
 export const createAutor = async(autor) => {
     try{
         const response = await api.post('/autor', autor);
@@ -17,6 +26,15 @@ export const createAutor = async(autor) => {
     }
     catch(error){
         throw error;
+    }
+}
+
+export const editAutor = async (id, livro) => {
+    try {
+      const response = await api.put(`/autor/${id}`, livro);
+      return response.data;
+    } catch (error) {
+      throw error;
     }
 }
 
