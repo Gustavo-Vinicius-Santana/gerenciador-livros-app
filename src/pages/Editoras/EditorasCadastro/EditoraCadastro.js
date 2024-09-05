@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { createEditora } from "../../../services/EditoraService";
+
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraCadastro(){
+    const { cadastrarEditora, mensagem, setMensagem } = useEditoraData();
     const [name, setName] = useState('');
-    const [mensagem, setMensagem] = useState('');
 
 
     const handleSubmit = async (event) => {
@@ -16,15 +17,7 @@ export default function EditoraCadastro(){
 
         console.log(novaEditora);
 
-        try {
-          await createEditora(novaEditora); // Chama o serviço para criar o livro
-          setMensagem('Editora cadastrada com sucesso!');
-          // Limpar os campos após o cadastro
-          setName('');
-        } catch (error) {
-          console.error('Erro ao cadastrar a editora:', error);
-          setMensagem('Erro ao cadastrar a editora. Tente novamente.');
-        }
+        await cadastrarEditora(novaEditora);
     };
 
     return(

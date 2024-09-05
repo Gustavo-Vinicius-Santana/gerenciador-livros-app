@@ -4,30 +4,21 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getEditoraById } from "../../../services/EditoraService";
 import { editEditora } from "../../../services/EditoraService";
 
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
+
 export default function EditoraEdit(){
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const { buscarEditoraId, editarEditora, mensagem, setMensagem, loading, setLoading } = useEditoraData();
+
     const [editora, setEditora] = useState('');
     const [nome, setNome] = useState('');
-
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
         const fetchEditora = async () => {
-            try {
-                const data = await getEditoraById(id);
-                setEditora(data);
-                setNome(data.nome)
-            } catch (error) {
-                console.error("Erro ao buscar editora:", error);
-            }
-            finally {
-                setLoading(false);
-                console.log(editora) // Finaliza o estado de loading
-            }
+            await buscarEditoraId(id, setEditora, setNome);
         };
 
         fetchEditora();
@@ -43,17 +34,7 @@ export default function EditoraEdit(){
 
         console.log(editoraEditada);
 
-        try {
-          await editEditora(id, editoraEditada); // Chama o serviço para editar o livro
-          setMensagem('Editora editada com sucesso!');
-          // Limpar os campos após a edição
-          setNome('');
-          // Redirecionar para a página de detalhes ou lista de livros
-          navigate(`/editora`);
-        } catch (error) {
-          console.error('Erro ao editar editora:', error);
-          setMensagem('Erro ao editar a editora. Tente novamente.');
-        }
+        await editarEditora(id, editoraEditada, setNome)
       };
 
 

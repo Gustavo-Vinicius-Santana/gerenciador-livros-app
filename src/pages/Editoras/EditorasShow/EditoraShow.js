@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
-import { getEditoras } from "../../../services/EditoraService";
-import { deleteEditora } from "../../../services/EditoraService";
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraShow(){
     const navigate = useNavigate();
+    const { buscarTodasEditoras, deletarEditora, loading } = useEditoraData();
 
     const [editoras, setEditoras] = useState([]);
-    const [loading, setLoading] = useState(true);
-
     const [selectedEditora, setSelectedEditora] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -26,28 +24,14 @@ export default function EditoraShow(){
 
     useEffect(() => {
         const fetchEditoras = async () => {
-            try {
-                const data = await getEditoras(); // Chama o service para buscar os livros
-                setEditoras(data);
-                console.log(data) // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar editoras:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodasEditoras(setEditoras);
         };
 
       fetchEditoras();
     }, []);
 
     const handleDelete = async () => {
-        try {
-          await deleteEditora(selectedEditora.id);
-          window.location.reload();
-        } catch (error) {
-          console.error('Erro ao deletar a editora:', error);
-          alert('Erro ao deletar a editora. Tente novamente.');
-        }
+        await deletarEditora(selectedEditora);
     };
 
 

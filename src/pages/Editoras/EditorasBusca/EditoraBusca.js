@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { searchEditora } from "../../../services/EditoraService";
+import React, { useState, useEffect } from "react";
+
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraBusca(){
+    const { buscarEditora, loading, setLoading, mensagem, setMensagem } = useEditoraData();
+
     const [nome, setNome] = useState('');
     const [resultados, setResultados] = useState([]);
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(false);
 
-    // Função para buscar editoras
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
     const fetchEditoras = async () => {
         if (nome.trim() === '') {
         setResultados([]);
@@ -18,26 +22,9 @@ export default function EditoraBusca(){
 
         setLoading(true);
 
-        try {
-        const response = await searchEditora(nome);
-        const editoras = response.editoras || [];
-        if (editoras.length > 0) {
-            setResultados(editoras);
-            setMensagem('');
-        } else {
-            setResultados([]);
-            setMensagem('Nenhum editora encontrado.');
-        }
-        } catch (error) {
-        console.error('Erro ao buscar editoras:', error);
-        setResultados([]);
-        setMensagem('Erro ao buscar editoras. Tente novamente.');
-        } finally {
-        setLoading(false);
-        }
+        await buscarEditora(nome, setResultados);
     };
 
-    // Função chamada quando o botão de busca é clicado
     const handleBuscaClick = () => {
         fetchEditoras();
     };
