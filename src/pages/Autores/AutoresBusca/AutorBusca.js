@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { searchAutor } from "../../../services/AutorService";
+import React, { useState, useEffect } from "react";
+
+import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorBusca(){
-    const [nome, setNome] = useState('');
     const [resultados, setResultados] = useState([]);
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [nome, setNome] = useState('');
+    const { buscarAutor, mensagem, setMensagem, loading, setLoading } = useAutor();
+
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
 
     // Função para buscar autores
     const fetchAutores = async () => {
@@ -16,25 +21,7 @@ export default function AutorBusca(){
         return;
         }
 
-        setLoading(true);
-
-        try {
-        const response = await searchAutor(nome);
-        const autores = response.autores || [];
-        if (autores.length > 0) {
-            setResultados(autores);
-            setMensagem('');
-        } else {
-            setResultados([]);
-            setMensagem('Nenhum autor encontrado.');
-        }
-        } catch (error) {
-        console.error('Erro ao buscar autores:', error);
-        setResultados([]);
-        setMensagem('Erro ao buscar autores. Tente novamente.');
-        } finally {
-        setLoading(false);
-        }
+        await buscarAutor(nome, setResultados);
     };
 
     // Função chamada quando o botão de busca é clicado

@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { editAutor, getAutorById } from "../../../services/AutorService";
+import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorEdit(){
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const { buscarAutorId, editarAutor, mensagem, setMensagem, loading, setLoading } = useAutor();
+
     const [autor, setAutor] = useState('');
     const [nome, setNome] = useState('');
 
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchAutor = async () => {
-            try {
-                const data = await getAutorById(id);
-                setAutor(data);
-                setNome(data.nome)
-            } catch (error) {
-                console.error("Erro ao buscar autor:", error);
-            }
-            finally {
-                setLoading(false);
-                console.log(autor) // Finaliza o estado de loading
-            }
+            await buscarAutorId(id, setAutor, setNome);
         };
 
         fetchAutor();
@@ -41,18 +31,8 @@ export default function AutorEdit(){
 
         console.log(autorEditado);
 
-        try {
-          await editAutor(id, autorEditado); // Chama o serviço para editar o livro
-          setMensagem('Autor editado com sucesso!');
-          // Limpar os campos após a edição
-          setNome('');
-          // Redirecionar para a página de detalhes ou lista de livros
-          navigate(`/autor`);
-        } catch (error) {
-          console.error('Erro ao editar autor:', error);
-          setMensagem('Erro ao editar autores. Tente novamente.');
-        }
-      };
+        await editarAutor(id, autorEditado, setNome);
+    };
 
 
     if (loading) return <div>Carregando...</div>;

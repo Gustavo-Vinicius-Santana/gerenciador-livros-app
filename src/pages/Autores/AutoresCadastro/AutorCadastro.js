@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { createAutor } from "../../../services/AutorService";
+
+import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorCadastro(){
     const [name, setName] = useState('');
-    const [mensagem, setMensagem] = useState('');
+    const { cadastrarAutor, mensagem, setMensagem } = useAutor();
 
 
     const handleSubmit = async (event) => {
@@ -13,18 +14,11 @@ export default function AutorCadastro(){
         const novoAutor = {
             'nome': name
         };
-
         console.log(novoAutor);
 
-        try {
-          await createAutor(novoAutor); // Chama o serviço para criar o livro
-          setMensagem('Autor cadastrado com sucesso!');
-          // Limpar os campos após o cadastro
-          setName('');
-        } catch (error) {
-          console.error('Erro ao cadastrar o autor:', error);
-          setMensagem('Erro ao cadastrar o autor. Tente novamente.');
-        }
+
+        await cadastrarAutor(novoAutor);
+        setName('');
     };
 
     return(

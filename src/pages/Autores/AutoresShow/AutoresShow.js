@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
-import { getAutores } from '../../../services/AutorService';
-import { deleteAutor } from "../../../services/AutorService";
+import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutoresShow(){
     const navigate = useNavigate();
 
-    const [autores, setAutores] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { buscarTodosAutores, deletarAutor, loading } = useAutor();
 
+    const [autores, setAutores] = useState([]);
     const [selectedAutor, setSelectedAutor] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -24,29 +23,18 @@ export default function AutoresShow(){
         setSelectedAutor(null);
     };
 
+
     useEffect(() => {
         const fetchAutores = async () => {
-            try {
-                const data = await getAutores(); // Chama o service para buscar os livros
-                setAutores(data); // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar autores:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodosAutores(setAutores);
         };
 
-      fetchAutores();
+        fetchAutores();
     }, []);
 
+
     const handleDelete = async () => {
-        try {
-          await deleteAutor(selectedAutor.id);
-          window.location.reload();
-        } catch (error) {
-          console.error('Erro ao deletar a editora:', error);
-          alert('Erro ao deletar a editora. Tente novamente.');
-        }
+        await deletarAutor(selectedAutor);
     };
 
 
