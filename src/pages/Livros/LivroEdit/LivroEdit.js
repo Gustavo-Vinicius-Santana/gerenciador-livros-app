@@ -7,7 +7,7 @@ import { useAutorData } from "../../../services/hooks/useAutorData";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function LivroEdit(){
-    const { buscarLivroId, mensagem, setMensagem, loading, setLoading } = useLivroData();
+    const { buscarLivroId, editarLivro, mensagem, setMensagem, loading, setLoading } = useLivroData();
     const { buscarTodosAutores } = useAutorData();
     const { buscarTodasEditoras } = useEditoraData();
 
@@ -63,21 +63,7 @@ export default function LivroEdit(){
 
         console.log(livroEditado);
 
-        try {
-          await editLivro(id, livroEditado); // Chama o serviço para editar o livro
-          setMensagem('Livro editado com sucesso!');
-          // Limpar os campos após a edição
-          setTitulo('');
-          setResumo('');
-          setAnoLancamento('');
-          setAutorId('');
-          setEditoraId('');
-          // Redirecionar para a página de detalhes ou lista de livros
-          navigate(`/livro`);
-        } catch (error) {
-          console.error('Erro ao editar o livro:', error);
-          setMensagem('Erro ao editar o livro. Tente novamente.');
-        }
+        await editarLivro(id, livroEditado, setTitulo, setResumo, setAnoLancamento, setAutorId, setEditoraId);
       };
 
     if (loading) return <div>Carregando...</div>;

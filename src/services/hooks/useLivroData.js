@@ -6,6 +6,7 @@ import { getLivros } from '../LivroService';
 import { createLivro } from '../LivroService';
 import { searchLivro } from '../LivroService';
 import { getLivroById } from '../LivroService';
+import { editLivro } from '../LivroService';
 import { deleteLivro } from '../LivroService';
 
 export const useLivroData = () => {
@@ -79,6 +80,25 @@ export const useLivroData = () => {
         }
     }
 
+    const editarLivro = async (id, livroEditado, setTitulo, setResumo, setAnoLancamento, setAutorId, setEditoraId) => {
+        try {
+          await editLivro(id, livroEditado); // Chama o serviço para editar o livro
+          setMensagem('Livro editado com sucesso!');
+          // Limpar os campos após a edição
+          setTitulo('');
+          setResumo('');
+          setAnoLancamento('');
+          setAutorId('');
+          setEditoraId('');
+          // Redirecionar para a página de detalhes ou lista de livros
+          navigate(`/livro`);
+        } catch (error) {
+          console.error('Erro ao editar o livro:', error);
+          setMensagem('Erro ao editar o livro. Tente novamente.');
+        }
+
+    }
+
     const deletarLivro = async (selectedBook) => {
         try {
             await deleteLivro(selectedBook.id);
@@ -94,6 +114,7 @@ export const useLivroData = () => {
         cadastrarLivro,
         buscarLivro,
         buscarLivroId,
+        editarLivro,
         deletarLivro,
 
         setLoading,
