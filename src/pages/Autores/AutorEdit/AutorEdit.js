@@ -7,7 +7,7 @@ export default function AutorEdit(){
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { buscarAutorId, editarAutor, mensagem, setMensagem, loading, setLoading } = useAutor();
+    const { buscarAutorId, editarAutor, mensagem, setMensagem, loading, setLoading } = useAutorData();
 
     const [autor, setAutor] = useState('');
     const [nome, setNome] = useState('');

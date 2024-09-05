@@ -7,7 +7,7 @@ import { useAutorData } from "../../../services/hooks/useAutorData";
 export default function AutoresShow(){
     const navigate = useNavigate();
 
-    const { buscarTodosAutores, deletarAutor, loading } = useAutor();
+    const { buscarTodosAutores, deletarAutor, loading } = useAutorData();
 
     const [autores, setAutores] = useState([]);
     const [selectedAutor, setSelectedAutor] = useState(null);

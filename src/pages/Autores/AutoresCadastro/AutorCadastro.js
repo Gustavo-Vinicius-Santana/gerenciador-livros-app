@@ -4,7 +4,7 @@ import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorCadastro(){
     const [name, setName] = useState('');
-    const { cadastrarAutor, mensagem, setMensagem } = useAutor();
+    const { cadastrarAutor, mensagem, setMensagem } = useAutorData();
 
 
     const handleSubmit = async (event) => {

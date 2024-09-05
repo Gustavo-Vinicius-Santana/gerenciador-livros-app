@@ -5,7 +5,7 @@ import { useAutorData } from "../../../services/hooks/useAutorData";
 export default function AutorBusca(){
     const [resultados, setResultados] = useState([]);
     const [nome, setNome] = useState('');
-    const { buscarAutor, mensagem, setMensagem, loading, setLoading } = useAutor();
+    const { buscarAutor, mensagem, setMensagem, loading, setLoading } = useAutorData();
 
     useEffect(() => {
         setLoading(false);
