@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { getEditoraById } from "../../../services/EditoraService";
-import { editEditora } from "../../../services/EditoraService";
-
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraEdit(){
