@@ -1,5 +1,8 @@
 import React, { useState, useEffect }  from "react";
 
+import ButtonLoading from "../../../components/Forms/Buttons/ButtonLoading";
+import InputText from "../../../components/Forms/Inputs/InputText";
+
 import { useLivroData } from "../../../services/hooks/useLivroData";
 
 export default function LivrosBusca(){
@@ -33,23 +36,13 @@ export default function LivrosBusca(){
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-4">Buscar Livros</h1>
                     <div className="mb-6">
-                        <input
-                            type="text"
-                            placeholder="Buscar livros..."
-                            value={titulo}
-                            onChange={(e) => setTitulo(e.target.value)}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                        />
+                        <InputText id="titulo" titulo="titulo"
+                        placeholder="Digite o titulo do livro"
+                        tipo="text" valor={titulo} setValor={setTitulo}/>
                     </div>
 
                     <div className="flex justify-center mb-6">
-                        <button
-                            onClick={handleBuscaClick}
-                            disabled={loading}
-                            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
-                        >
-                            {loading ? 'Buscando...' : 'Buscar'}
-                        </button>
+                        <ButtonLoading titulo="procurar livro" loading={loading} action={handleBuscaClick} />
                     </div>
 
                     {loading ? (
