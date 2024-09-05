@@ -1,11 +1,12 @@
 import React, { useState, useEffect }  from "react";
-import { searchLivro } from "../../../services/LivroService";
+
+import { useLivroData } from "../../../services/hooks/useLivroData";
 
 export default function LivrosBusca(){
+    const { buscarLivro, mensagem, setMensagem, loading, setLoading } = useLivroData();
+
     const [titulo, setTitulo] = useState('');
     const [resultados, setResultados] = useState([]);
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(false);
 
     // Função para buscar livros
     const fetchLivros = async () => {
@@ -18,23 +19,7 @@ export default function LivrosBusca(){
 
         setLoading(true);
 
-        try {
-        const response = await searchLivro(titulo);
-        const livros = response.livros || [];
-        if (livros.length > 0) {
-            setResultados(livros);
-            setMensagem('');
-        } else {
-            setResultados([]);
-            setMensagem('Nenhum livro encontrado.');
-        }
-        } catch (error) {
-        console.error('Erro ao buscar livros:', error);
-        setResultados([]);
-        setMensagem('Erro ao buscar livros. Tente novamente.');
-        } finally {
-        setLoading(false);
-        }
+        await buscarLivro(titulo, setResultados);
     };
 
     // Função chamada quando o botão de busca é clicado

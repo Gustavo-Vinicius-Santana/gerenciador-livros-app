@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
-import { getLivros } from '../../../services/LivroService';
-import { deleteLivro } from '../../../services/LivroService';
+import { useLivroData } from '../../../services/hooks/useLivroData';
 
 export default function LivrosShow(){
     const navigate = useNavigate();
+
+    const { buscarTodosLivros, deletarLivro, loading } = useLivroData();
+
     const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
+
     const [selectedBook, setSelectedBook] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -24,27 +26,14 @@ export default function LivrosShow(){
 
     useEffect(() => {
         const fetchLivros = async () => {
-            try {
-                const data = await getLivros(); // Chama o service para buscar os livros
-                setBooks(data); // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar livros:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodosLivros(setBooks);
         };
 
       fetchLivros();
     }, []);
 
     const handleDelete = async () => {
-        try {
-          await deleteLivro(selectedBook.id);
-          window.location.reload();
-        } catch (error) {
-          console.error('Erro ao deletar o livro:', error);
-          alert('Erro ao deletar o livro. Tente novamente.');
-        }
+        await deletarLivro(selectedBook);
       };
 
 

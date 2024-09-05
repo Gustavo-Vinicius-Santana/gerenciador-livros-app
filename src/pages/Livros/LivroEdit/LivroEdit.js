@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { editLivro } from "../../../services/LivroService";
-import { getLivroById } from "../../../services/LivroService";
-import { getEditoras } from "../../../services/EditoraService";
-import { getAutores } from "../../../services/AutorService";
+
+import { useLivroData } from "../../../services/hooks/useLivroData";
+import { useAutorData } from "../../../services/hooks/useAutorData";
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function LivroEdit(){
+    const { buscarLivroId, mensagem, setMensagem, loading, setLoading } = useLivroData();
+    const { buscarTodosAutores } = useAutorData();
+    const { buscarTodasEditoras } = useEditoraData();
+
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -19,9 +24,6 @@ export default function LivroEdit(){
     const [anoLancamento, setAnoLancamento] = useState('');
     const [editoraId, setEditoraId] = useState('');
 
-    const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(true);
-
     const handleDateChange = (event) => {
         const selectedDate = event.target.value; // Ex: "2024-09-01"
         const dateObject = new Date(selectedDate);
@@ -33,42 +35,13 @@ export default function LivroEdit(){
 
     useEffect(() => {
         const fetchLivro = async () => {
-          try {
-            const data = await getLivroById(id);
-            setLivro(data);
-            setTitulo(data.titulo);
-            setResumo(data.resumo);
-            setAnoLancamento(data.ano_lancamento);
-            setAutorId(data.autores_id);
-            setEditoraId(data.editoras_id);
-          } catch (error) {
-            console.error("Erro ao buscar o livro:", error);
-          }
-          finally {
-            setLoading(false);
-            console.log(livro) // Finaliza o estado de loading
-        }
+            await buscarLivroId(id, setLivro, setTitulo, setResumo, setAnoLancamento, setAutorId, setEditoraId);
         };
         const fetchAutores = async () => {
-            try {
-                const data = await getAutores(); // Chama o service para buscar os livros
-                setAutores(data); // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar autores:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodosAutores(setAutores);
         };
         const fetchEditoras = async () => {
-            try {
-                const data = await getEditoras(); // Chama o service para buscar os livros
-                setEditoras(data);
-                console.log(data) // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar editoras:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodasEditoras(setEditoras);
         };
 
         fetchAutores();

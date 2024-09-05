@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Datepicker } from "flowbite-react";
-import { createLivro } from "../../../services/LivroService";
-import { getEditoras } from "../../../services/EditoraService";
-import { getAutores } from "../../../services/AutorService";
+
+import { useLivroData } from "../../../services/hooks/useLivroData";
+import { useEditoraData } from "../../../services/hooks/useEditoraData";
+import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function LivrosCadastro(){
+    const { cadastrarLivro, loading, setLoading, mensagem, setMensagem } = useLivroData()
+    const { buscarTodosAutores } = useAutorData();
+    const { buscarTodasEditoras } = useEditoraData();
+
+
     // states dos autores e editoras
     const [autores, setAutores] = useState([]);
     const [editoras, setEditoras] = useState([]);
-    const [loading, setLoading] = useState(true);
     // states do cadastro do livro
     const [titulo, setTitulo] = useState('');
     const [resumo, setResumo] = useState('');
     const [autorId, setAutorId] = useState('');
     const [anoLancamento, setAnoLancamento] = useState('');
     const [editoraId, setEditoraId] = useState('');
-    const [mensagem, setMensagem] = useState('');
 
+
+    const today = new Date().toISOString().split('T')[0];
     const handleDateChange = (event) => {
         const selectedDate = event.target.value; // Ex: "2024-09-01"
         const dateObject = new Date(selectedDate);
         const yearOnly = dateObject.getFullYear(); // Extrai somente o ano
         setAnoLancamento(yearOnly);
-      };
+    };
 
-    const today = new Date().toISOString().split('T')[0];
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setMensagem('');
@@ -39,47 +44,21 @@ export default function LivrosCadastro(){
 
         console.log(novoLivro);
 
-        try {
-          await createLivro(novoLivro); // Chama o serviço para criar o livro
-          setMensagem('Livro cadastrado com sucesso!');
-          // Limpar os campos após o cadastro
-          setTitulo('');
-          setResumo('');
-          setAutorId('');
-          setEditoraId('');
-          setAnoLancamento('');
-        } catch (error) {
-          console.error('Erro ao cadastrar o livro:', error);
-          setMensagem('Erro ao cadastrar o livro. Tente novamente.');
-        }
-      };
+        await cadastrarLivro(novoLivro, setTitulo, setResumo, setAutorId, setEditoraId, setAnoLancamento);
+    };
 
-      useEffect(() => {
+    useEffect(() => {
         const fetchAutores = async () => {
-            try {
-                const data = await getAutores(); // Chama o service para buscar os livros
-                setAutores(data); // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar autores:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodosAutores(setAutores);
         };
 
         const fetchEditoras = async () => {
-            try {
-                const data = await getEditoras(); // Chama o service para buscar os livros
-                setEditoras(data);
-                console.log(data) // Atualiza o estado com a lista de livros
-            } catch (error) {
-                console.error('Erro ao buscar editoras:', error);
-            } finally {
-                setLoading(false); // Finaliza o estado de loading
-            }
+            await buscarTodasEditoras(setEditoras);
         };
 
-      fetchAutores();
-      fetchEditoras();
+        setLoading(false);
+        fetchAutores();
+        fetchEditoras();
     }, []);
 
       if (loading) return <p>Carregando...</p>;
