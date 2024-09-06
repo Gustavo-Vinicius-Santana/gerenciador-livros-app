@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
+import InputText from "../../../components/Forms/Inputs/InputText";
+import ButtonLoading from "../../../components/Forms/Buttons/ButtonLoading";
+
 export default function EditoraBusca(){
     const { buscarEditora, loading, setLoading, mensagem, setMensagem } = useEditoraData();
 
@@ -36,23 +39,13 @@ export default function EditoraBusca(){
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-4">Buscar Editora</h1>
                     <div className="mb-6">
-                        <input
-                            type="text"
-                            placeholder="Buscar editoras..."
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                        />
+                        <InputText id="nome" titulo="Buscar editora:"
+                        placeholder="Digite o nome da editora"
+                        tipo="text" valor={nome} setValor={setNome}/>
                     </div>
 
                     <div className="flex justify-center mb-6">
-                        <button
-                            onClick={handleBuscaClick}
-                            disabled={loading}
-                            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
-                        >
-                            {loading ? 'Buscando...' : 'Buscar'}
-                        </button>
+                        <ButtonLoading titulo="procurar editora" loading={loading} action={handleBuscaClick} />
                     </div>
 
                     {loading ? (

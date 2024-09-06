@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import InputText from "../../../components/Forms/Inputs/InputText";
+import Botao from "../../../components/Forms/Buttons/Button";
+
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraEdit(){
@@ -43,28 +46,15 @@ export default function EditoraEdit(){
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Editar Editora: {editora.nome}</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
-                        Nome
-                        </label>
-                        <input
-                        id="name"
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                        placeholder="Digite o nome da editora"
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                        required
-                        />
-                    </div>
-                    <div>
-                        <button
-                        type="submit"
-                        className="w-full py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300"
-                        >
-                        Cadastrar Editora
-                        </button>
-                    </div>
+                        <div>
+                            <InputText id="nome" titulo="Nome"
+                            placeholder="Digite o nome da editora"
+                            tipo="text" valor={nome} setValor={setNome} />
+                        </div>
+
+                        <div>
+                            <Botao titulo="cadastrar editora" />
+                        </div>
                     </form>
                 </div>
             </div>
