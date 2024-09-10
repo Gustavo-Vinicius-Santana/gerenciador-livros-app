@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import ModalEdit from "../../../components/Modals/ModalEdit";
 import CardItem from '../../../components/Cards/CardItem';
+import LoadingLists from '../../../components/Loadings/LoadingLists';
+
 import { useLivroData } from '../../../services/hooks/useLivroData';
 
 export default function LivrosShow(){
@@ -37,8 +39,7 @@ export default function LivrosShow(){
       };
 
 
-    if (loading) return <p>Carregando...</p>;
-
+    if (loading) return <LoadingLists />
     return(
         <main>
             <div className="min-h-screen bg-gray-100 p-8">
