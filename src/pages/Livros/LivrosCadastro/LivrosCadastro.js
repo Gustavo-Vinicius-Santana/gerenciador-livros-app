@@ -5,6 +5,7 @@ import InputArea from "../../../components/Forms/Inputs/InputArea";
 import InputTime from "../../../components/Forms/Inputs/InputTime";
 import SelectDados from "../../../components/Forms/selects/SelectDados";
 import Botao from "../../../components/Forms/Buttons/Button";
+import ToastAviso from "../../../components/Toasts/ToastAviso";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
@@ -27,6 +28,8 @@ export default function LivrosCadastro(){
     const [anoLancamento, setAnoLancamento] = useState('');
     const [editoraId, setEditoraId] = useState('');
 
+    const [showToast, setShowToast] = useState(false);
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,6 +46,7 @@ export default function LivrosCadastro(){
         console.log(novoLivro);
 
         await cadastrarLivro(novoLivro, setTitulo, setResumo, setAutorId, setEditoraId, setAnoLancamento);
+        setShowToast(true)
     };
 
     useEffect(() => {
@@ -62,8 +66,8 @@ export default function LivrosCadastro(){
     if (loading) return <p>Carregando...</p>;
     return(
         <main>
-            <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
+                <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Cadastro de Livro</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">

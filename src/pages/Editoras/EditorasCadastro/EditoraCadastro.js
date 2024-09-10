@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import InputText from "../../../components/Forms/Inputs/InputText";
 import Botao from "../../../components/Forms/Buttons/Button";
 
+import ToastAviso from "../../../components/Toasts/ToastAviso";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 export default function EditoraCadastro(){
     const { cadastrarEditora, mensagem, setMensagem } = useEditoraData();
     const [name, setName] = useState('');
+
+    const [showToast, setShowToast] = useState(false);
 
 
     const handleSubmit = async (event) => {
@@ -21,12 +24,13 @@ export default function EditoraCadastro(){
         console.log(novaEditora);
 
         await cadastrarEditora(novaEditora);
+        setShowToast(true)
     };
 
     return(
         <main>
-            <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
+                <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Cadastro de Editora</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">

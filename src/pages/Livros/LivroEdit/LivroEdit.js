@@ -7,6 +7,7 @@ import InputArea from "../../../components/Forms/Inputs/InputArea";
 import InputTime from "../../../components/Forms/Inputs/InputTime";
 import SelectDados from "../../../components/Forms/selects/SelectDados";
 import Botao from "../../../components/Forms/Buttons/Button";
+import ToastAviso from "../../../components/Toasts/ToastAviso";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useAutorData } from "../../../services/hooks/useAutorData";
@@ -30,6 +31,7 @@ export default function LivroEdit(){
     const [anoLancamento, setAnoLancamento] = useState('');
     const [editoraId, setEditoraId] = useState('');
 
+    const [showToast, setShowToast] = useState(false);
 
     useEffect(() => {
         const fetchLivro = async () => {
@@ -62,6 +64,7 @@ export default function LivroEdit(){
         console.log(livroEditado);
 
         await editarLivro(id, livroEditado, setTitulo, setResumo, setAnoLancamento, setAutorId, setEditoraId);
+        setShowToast(true)
       };
 
     if (loading) return <div>Carregando...</div>;
@@ -69,8 +72,8 @@ export default function LivroEdit(){
 
     return(
         <main>
-            <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
+                <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6">Edição do Livro: {livro.titulo}</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
