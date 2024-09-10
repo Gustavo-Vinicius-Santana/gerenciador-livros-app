@@ -3,6 +3,7 @@ import { Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 import ModalEdit from "../../../components/Modals/ModalEdit";
+import CardItem from "../../../components/Cards/CardItem";
 
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
@@ -44,9 +45,7 @@ export default function EditoraShow(){
                     <h1 className="text-3xl font-bold mb-8 text-center">Lista de editoras</h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {editoras.map((editora) => (
-                        <div onClick={() => openModalCard(editora)} key={editora.id} className=" cursor-pointer bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-semibold mb-2">{editora.nome}</h2>
-                        </div>
+                        <CardItem openModal={openModalCard} item={editora} />
                     ))}
                     </div>
                 </div>

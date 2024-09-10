@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import ModalEdit from "../../../components/Modals/ModalEdit";
+import CardItem from '../../../components/Cards/CardItem';
 import { useLivroData } from '../../../services/hooks/useLivroData';
 
 export default function LivrosShow(){
@@ -45,13 +46,7 @@ export default function LivrosShow(){
                     <h1 className="text-3xl font-bold mb-8 text-center">Lista de Livros</h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {books.map((book) => (
-                        <div onClick={() => openModalCard(book)} key={book.id} className="cursor-pointer bg-white p-6 rounded-lg shadow-lg">
-                            <h2 className="text-xl font-semibold mb-2">{book.titulo}</h2>
-                            <p className="text-gray-700 mb-4">{book.resumo}</p>
-                            <p className="text-gray-700 mb-4">{book.ano_lancamento}</p>
-                            <p className="text-gray-600">Autor: {book.autores_id}</p>
-                            <p className="text-gray-600">Editora: {book.editoras_id}</p>
-                        </div>
+                        <CardItem openModal={openModalCard} item={book} />
                     ))}
                     </div>
                 </div>
@@ -60,14 +55,13 @@ export default function LivrosShow(){
             <ModalEdit
                 item={selectedItem} setItem={setSelectedItem}
                 status={statusModal} setStatus={setStatusModal}
-                name={selectedItem?.nome}
+                name={selectedItem?.titulo}
                 resumo={selectedItem?.resumo}
                 ano_lancamento={selectedItem?.ano_lancamento}
                 editora_id={selectedItem?.editoras_id}
                 autor_id={selectedItem?.autores_id}
                 onDelete={handleDelete} onEdit={directEdit}
             />
-
         </main>
     )
 }
