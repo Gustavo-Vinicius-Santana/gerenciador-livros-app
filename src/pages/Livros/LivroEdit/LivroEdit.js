@@ -8,6 +8,7 @@ import InputTime from "../../../components/Forms/Inputs/InputTime";
 import SelectDados from "../../../components/Forms/selects/SelectDados";
 import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
+import LoadingLists from "../../../components/Loadings/LoadingLists";
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
@@ -74,8 +75,8 @@ export default function LivroEdit(){
         }
       };
 
-    if (loading) return <div>Carregando...</div>;
-    if (!livro || autores.length === 0) return <div>Carregando...</div>;
+    if (loading) return <LoadingLists />
+    if (!livro || autores.length === 0) return <LoadingLists />
 
     return(
         <main>

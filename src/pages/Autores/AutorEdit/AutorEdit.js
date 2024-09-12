@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
+import LoadingLists from "../../../components/Loadings/LoadingLists";
 
 import { useAutorData } from "../../../services/hooks/useAutorData";
 
@@ -43,7 +44,7 @@ export default function AutorEdit(){
     };
 
 
-    if (loading) return <div>Carregando...</div>;
+    if (loading) return <LoadingLists />
     return(
         <main>
             <LoadingOverlay loading={loadingScreen} />

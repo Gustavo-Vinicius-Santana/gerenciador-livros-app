@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import InputText from "../../../components/Forms/Inputs/InputText";
 import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
+import LoadingLists from "../../../components/Loadings/LoadingLists";
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
@@ -49,7 +50,7 @@ export default function EditoraEdit(){
       };
 
 
-    if (loading) return <div>Carregando...</div>;
+    if (loading) return <LoadingLists />
     return(
         <main>
             <LoadingOverlay loading={loadingScreen} />
