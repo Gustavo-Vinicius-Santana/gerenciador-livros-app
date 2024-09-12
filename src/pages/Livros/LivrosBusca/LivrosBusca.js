@@ -11,6 +11,10 @@ export default function LivrosBusca(){
     const [titulo, setTitulo] = useState('');
     const [resultados, setResultados] = useState([]);
 
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
     // Função para buscar livros
     const fetchLivros = async () => {
         if (titulo.trim() === '') {
