@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
+
 import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorEdit(){
@@ -11,6 +13,7 @@ export default function AutorEdit(){
 
     const [autor, setAutor] = useState('');
     const [nome, setNome] = useState('');
+    const [loadingScreen, setLoadingScreen] = useState(false);
 
 
     useEffect(() => {
@@ -31,13 +34,19 @@ export default function AutorEdit(){
 
         console.log(autorEditado);
 
-        await editarAutor(id, autorEditado, setNome);
+        try{
+            setLoadingScreen(true)
+            await editarAutor(id, autorEditado, setNome);
+        }finally{
+            setLoadingScreen(false)
+        }
     };
 
 
     if (loading) return <div>Carregando...</div>;
     return(
         <main>
+            <LoadingOverlay loading={loadingScreen} />
             <div><h1>{mensagem}</h1></div>
             <div className="min-h-screen bg-gray-100 p-8">
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">

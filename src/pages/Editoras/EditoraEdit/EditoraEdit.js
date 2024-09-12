@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import InputText from "../../../components/Forms/Inputs/InputText";
 import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
@@ -17,6 +18,7 @@ export default function EditoraEdit(){
     const [nome, setNome] = useState('');
 
     const [showToast, setShowToast] = useState(false);
+    const [loadingScreen, setLoadingScreen] = useState(false);
 
 
     useEffect(() => {
@@ -37,14 +39,20 @@ export default function EditoraEdit(){
 
         console.log(editoraEditada);
 
-        await editarEditora(id, editoraEditada, setNome)
-        setShowToast(true)
+        try{
+            setLoadingScreen(true)
+            await editarEditora(id, editoraEditada, setNome)
+        }finally{
+            setLoadingScreen(false)
+            setShowToast(true)
+        }
       };
 
 
     if (loading) return <div>Carregando...</div>;
     return(
         <main>
+            <LoadingOverlay loading={loadingScreen} />
             <div className="min-h-screen bg-gray-100 p-8">
                 <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">

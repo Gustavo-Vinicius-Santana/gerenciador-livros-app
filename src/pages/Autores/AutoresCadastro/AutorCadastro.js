@@ -2,13 +2,14 @@ import React, { useState } from "react";
 
 import { useAutorData } from "../../../services/hooks/useAutorData";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 export default function AutorCadastro(){
     const [name, setName] = useState('');
     const { cadastrarAutor, mensagem, setMensagem } = useAutorData();
 
     const [showToast, setShowToast] = useState(false);
-
+    const [loading, setLoading] = useState();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,13 +21,19 @@ export default function AutorCadastro(){
         console.log(novoAutor);
 
 
-        await cadastrarAutor(novoAutor);
-        setName('');
-        setShowToast(true)
+        try{
+            setLoading(true)
+            await cadastrarAutor(novoAutor);
+        }finally{
+            setName('');
+            setLoading(false);
+            setShowToast(true);
+        }
     };
 
     return(
         <main>
+            <LoadingOverlay loading={loading} />
             <div className="min-h-screen bg-gray-100 p-8">
                 <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">

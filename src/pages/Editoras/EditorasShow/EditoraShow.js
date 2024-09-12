@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ModalEdit from "../../../components/Modals/ModalEdit";
 import CardItem from "../../../components/Cards/CardItem";
 import LoadingLists from "../../../components/Loadings/LoadingLists";
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
@@ -13,8 +14,10 @@ export default function EditoraShow(){
     const { buscarTodasEditoras, deletarEditora, loading } = useEditoraData();
     const [editoras, setEditoras] = useState([]);
 
+
     const [selectedItem, setSelectedItem] = useState(null);
     const [statusModal, setStatusModal] = useState(false);
+    const [loadingScreen, setLoadingScreen] = useState(false);
 
 
     const openModalCard = (item) => {
@@ -34,13 +37,21 @@ export default function EditoraShow(){
       fetchEditoras();
     }, []);
     const handleDelete = async () => {
-        await deletarEditora(selectedItem);
+        try{
+            setLoadingScreen(true);
+            await deletarEditora(selectedItem);
+        }finally{
+            setLoadingScreen(false);
+            setStatusModal(false);
+            setSelectedItem(null);
+        }
     };
 
 
     if (loading) return <LoadingLists />
     return(
         <main>
+            <LoadingOverlay loading={loadingScreen} />
             <div className="min-h-screen bg-gray-100 p-8">
                 <div className="container mx-auto max-w-6xl">
                     <h1 className="text-3xl font-bold mb-8 text-center">Lista de editoras</h1>

@@ -6,6 +6,7 @@ import InputTime from "../../../components/Forms/Inputs/InputTime";
 import SelectDados from "../../../components/Forms/selects/SelectDados";
 import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
@@ -29,6 +30,7 @@ export default function LivrosCadastro(){
     const [editoraId, setEditoraId] = useState('');
 
     const [showToast, setShowToast] = useState(false);
+    const [loadingScreen, setLoadingScreen] = useState(false);
 
 
     const handleSubmit = async (event) => {
@@ -45,8 +47,13 @@ export default function LivrosCadastro(){
 
         console.log(novoLivro);
 
-        await cadastrarLivro(novoLivro, setTitulo, setResumo, setAutorId, setEditoraId, setAnoLancamento);
-        setShowToast(true)
+        try{
+            setLoadingScreen(true)
+            await cadastrarLivro(novoLivro, setTitulo, setResumo, setAutorId, setEditoraId, setAnoLancamento);
+        }finally{
+            setLoadingScreen(false)
+            setShowToast(true)
+        }
     };
 
     useEffect(() => {
@@ -66,6 +73,7 @@ export default function LivrosCadastro(){
     if (loading) return <p>Carregando...</p>;
     return(
         <main>
+            <LoadingOverlay loading={loadingScreen} />
             <div className="min-h-screen bg-gray-100 p-8">
                 <ToastAviso show={showToast} setShow={setShowToast} mensagem={mensagem} />
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
