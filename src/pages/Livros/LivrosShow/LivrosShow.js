@@ -40,7 +40,7 @@ export default function LivrosShow(){
         try{
             setLoadingScreen(true)
             setStatusModal(false)
-            await deletarLivro(setSelectedItem);
+            await deletarLivro(selectedItem);
         }finally{
             setLoadingScreen(false)
             setSelectedItem(null)
