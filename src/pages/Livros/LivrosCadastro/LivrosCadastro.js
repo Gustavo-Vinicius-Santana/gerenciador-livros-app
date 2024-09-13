@@ -7,6 +7,7 @@ import SelectDados from "../../../components/Forms/selects/SelectDados";
 import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
+import LoadingLists from "../../../components/Loadings/LoadingLists";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
@@ -70,7 +71,7 @@ export default function LivrosCadastro(){
         fetchEditoras();
     }, []);
 
-    if (loading) return <p>Carregando...</p>;
+    if (loading) return <LoadingLists />
     return(
         <main>
             <LoadingOverlay loading={loadingScreen} />
