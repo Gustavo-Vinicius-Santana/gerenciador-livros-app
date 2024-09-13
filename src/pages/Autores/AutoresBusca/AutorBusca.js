@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+import InputText from "../../../components/Forms/Inputs/InputText";
+import ButtonLoading from "../../../components/Forms/Buttons/ButtonLoading";
+import LoadingMin from "../../../components/Loadings/LoadingMin";
+
 import { useAutorData } from "../../../services/hooks/useAutorData";
 
 export default function AutorBusca(){
@@ -12,7 +16,6 @@ export default function AutorBusca(){
     }, []);
 
 
-    // Função para buscar autores
     const fetchAutores = async () => {
         if (nome.trim() === '') {
         setResultados([]);
@@ -23,8 +26,6 @@ export default function AutorBusca(){
 
         await buscarAutor(nome, setResultados);
     };
-
-    // Função chamada quando o botão de busca é clicado
     const handleBuscaClick = () => {
         fetchAutores();
     };
@@ -35,27 +36,19 @@ export default function AutorBusca(){
                 <div className="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-4">Buscar Autor</h1>
                     <div className="mb-6">
-                        <input
-                            type="text"
-                            placeholder="Buscar autores..."
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-                        />
+                        <InputText id="nome" titulo="Buscar Autor:"
+                        placeholder="Digite o nome do autor"
+                        tipo="text" valor={nome} setValor={setNome}/>
                     </div>
 
                     <div className="flex justify-center mb-6">
-                        <button
-                            onClick={handleBuscaClick}
-                            disabled={loading}
-                            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
-                        >
-                            {loading ? 'Buscando...' : 'Buscar'}
-                        </button>
+                        <ButtonLoading titulo="procurar autor" loading={loading} action={handleBuscaClick} />
                     </div>
 
                     {loading ? (
-                        <p>Carregando...</p>
+                        <div className="flex justify-center items-start">
+                            <LoadingMin />
+                        </div>
                     ) : (
                         <>
                         {mensagem && <p>{mensagem}</p>}
