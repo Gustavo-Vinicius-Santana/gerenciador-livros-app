@@ -4,6 +4,7 @@ import { useEditoraData } from "../../../services/hooks/useEditoraData";
 
 import InputText from "../../../components/Forms/Inputs/InputText";
 import ButtonLoading from "../../../components/Forms/Buttons/ButtonLoading";
+import LoadingMin from "../../../components/Loadings/LoadingMin";
 
 export default function EditoraBusca(){
     const { buscarEditora, loading, setLoading, mensagem, setMensagem } = useEditoraData();
@@ -49,7 +50,9 @@ export default function EditoraBusca(){
                     </div>
 
                     {loading ? (
-                        <p>Carregando...</p>
+                        <div className="flex justify-center items-start">
+                            <LoadingMin />
+                        </div>
                     ) : (
                         <>
                         {mensagem && <p>{mensagem}</p>}

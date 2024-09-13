@@ -2,6 +2,7 @@ import React, { useState, useEffect }  from "react";
 
 import ButtonLoading from "../../../components/Forms/Buttons/ButtonLoading";
 import InputText from "../../../components/Forms/Inputs/InputText";
+import LoadingMin from "../../../components/Loadings/LoadingMin";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 
@@ -15,7 +16,7 @@ export default function LivrosBusca(){
         setLoading(false);
     }, []);
 
-    // Função para buscar livros
+
     const fetchLivros = async () => {
         if (titulo.trim() === '') {
         setResultados([]);
@@ -28,8 +29,6 @@ export default function LivrosBusca(){
 
         await buscarLivro(titulo, setResultados);
     };
-
-    // Função chamada quando o botão de busca é clicado
     const handleBuscaClick = () => {
         fetchLivros();
     };
@@ -50,7 +49,9 @@ export default function LivrosBusca(){
                     </div>
 
                     {loading ? (
-                        <p>Carregando...</p>
+                        <div className="flex justify-center items-start">
+                            <LoadingMin />
+                        </div>
                     ) : (
                         <>
                         {mensagem && <p>{mensagem}</p>}
