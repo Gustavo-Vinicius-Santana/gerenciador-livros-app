@@ -8,6 +8,7 @@ import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 import LoadingLists from "../../../components/Loadings/LoadingLists";
+import SelectYear from "../../../components/Forms/selects/SelectYear";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useEditoraData } from "../../../services/hooks/useEditoraData";
@@ -93,7 +94,7 @@ export default function LivrosCadastro(){
                         </div>
 
                         <div>
-                            <InputTime id="ano" titulo="ano de lançamento"
+                            <SelectYear id="ano" titulo="ano de lançamento"
                             setValor={setAnoLancamento} />
                         </div>
 

@@ -10,6 +10,7 @@ import Botao from "../../../components/Forms/Buttons/Button";
 import ToastAviso from "../../../components/Toasts/ToastAviso";
 import LoadingLists from "../../../components/Loadings/LoadingLists";
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
+import SelectYear from "../../../components/Forms/selects/SelectYear";
 
 import { useLivroData } from "../../../services/hooks/useLivroData";
 import { useAutorData } from "../../../services/hooks/useAutorData";
@@ -99,8 +100,8 @@ export default function LivroEdit(){
                         </div>
 
                         <div>
-                            <InputTime id="ano" titulo="ano de lançamento"
-                            setValor={setAnoLancamento} />
+                            <SelectYear id="ano" titulo="ano de lançamento"
+                            setValor={setAnoLancamento} valor={anoLancamento}/>
                         </div>
 
                         <div>
