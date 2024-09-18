@@ -4,7 +4,7 @@ import { Modal } from "flowbite-react";
 
 export default function ModalEdit({status, setStatus, item, setItem,
     name, onDelete, onEdit,
-    resumo, ano_lancamento, autor_id, editora_id}){
+    resumo, ano_lancamento, autor, editora}){
 
     const closeModal = () => {
         setStatus(false);
@@ -25,8 +25,8 @@ export default function ModalEdit({status, setStatus, item, setItem,
                         <Modal.Body>
                             {resumo && <p><strong>Resumo:</strong> {resumo}</p>}
                             {ano_lancamento && <p><strong>Ano de Lançamento:</strong> {ano_lancamento}</p>}
-                            {autor_id && <p><strong>Autor:</strong> {autor_id}</p>}
-                            {editora_id && <p><strong>Editora:</strong> {editora_id}</p>}
+                            {autor && <p><strong>Autor:</strong> {autor}</p>}
+                            {editora && <p><strong>Editora:</strong> {editora}</p>}
                         </Modal.Body>
                         <Modal.Footer>
                             <div className="w-full flex justify-between p-4">
