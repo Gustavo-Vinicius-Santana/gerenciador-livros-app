@@ -61,8 +61,8 @@ export default function LivrosBusca(){
                                     <h2 className="text-xl font-semibold mb-2">{livro.titulo}</h2>
                                         <p className="text-gray-700 mb-4">{livro.resumo}</p>
                                         <p className="text-gray-700 mb-4">{livro.ano_lancamento}</p>
-                                        <p className="text-gray-600">Autor: {livro.autores_id}</p>
-                                        <p className="text-gray-600">Editora: {livro.editoras_id}</p>
+                                        <p className="text-gray-600">Autor: {livro.autor}</p>
+                                        <p className="text-gray-600">Editora: {livro.editora}</p>
                                     </div>
                                 ))}
                         </div>

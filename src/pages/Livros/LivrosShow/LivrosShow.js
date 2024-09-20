@@ -69,8 +69,8 @@ export default function LivrosShow(){
                 name={selectedItem?.titulo}
                 resumo={selectedItem?.resumo}
                 ano_lancamento={selectedItem?.ano_lancamento}
-                editora_id={selectedItem?.editoras_id}
-                autor_id={selectedItem?.autores_id}
+                editora={selectedItem?.editora}
+                autor={selectedItem?.autor}
                 onDelete={handleDelete} onEdit={directEdit}
             />
         </main>
