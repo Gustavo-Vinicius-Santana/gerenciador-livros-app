@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "flowbite-react";
 
-
+import UserIcon from "../UserIcon/UserIcon";
 
 export default function NavList({estilo}){
 
@@ -45,6 +45,12 @@ export default function NavList({estilo}){
                     <Dropdown.Item className="hover:underline" as="a" href={`/editora/busca`}>pesquisar</Dropdown.Item>
                     <Dropdown.Item className="hover:underline" as="a" href={`/editora`}>mostrar todos</Dropdown.Item>
                 </Dropdown>
+            </li>
+            <li>
+                <a href="">
+                    <UserIcon />
+                </a>
+
             </li>
         </ul>
     )

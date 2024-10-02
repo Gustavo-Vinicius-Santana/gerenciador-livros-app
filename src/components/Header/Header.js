@@ -16,7 +16,7 @@ export default function Header(){
                 <div className="container mx-auto flex justify-between items-center">
                     <h1 className="text-white font-bold text-2xl"><a href={`/`}>Gerenciador de livros</a></h1>
 
-                    <NavList estilo="hidden md:flex space-x-4"/>
+                    <NavList estilo="hidden md:flex space-x-4 justify-center items-center"/>
 
                     <div className="md:hidden">
                         <button onClick={toggleMenu} className="text-white focus:outline-none">
