@@ -23,6 +23,10 @@ import AutorCadastro from './pages/Autores/AutoresCadastro/AutorCadastro';
 import AutoresShow from './pages/Autores/AutoresShow/AutoresShow';
 import AutorEdit from './pages/Autores/AutorEdit/AutorEdit';
 
+// paginas usuarios
+import UsuarioLogin from './pages/Usuario/UsuarioLogin/UsuarioLogin';
+import UsuarioCadastro from './pages/Usuario/UsuarioCadastro/UsuarioCadastro';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -83,6 +87,16 @@ const router = createBrowserRouter([
     path: "/autor/editar/:id",
     element: <AutorEdit />,
   },
+
+  {
+    path: "/usuario/login",
+    element: <UsuarioLogin />
+  },
+
+  {
+    path: "/usuario/cadastro",
+    element: <UsuarioCadastro />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -47,7 +47,7 @@ export default function NavList({estilo}){
                 </Dropdown>
             </li>
             <li>
-                <a href="">
+                <a href={`/usuario/login`}>
                     <UserIcon />
                 </a>
 
