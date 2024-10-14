@@ -4,6 +4,7 @@ import { useAuth } from "../../../contexts/AuthProvider";
 
 import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 import InputText from "../../../components/Forms/Inputs/InputText";
+import InputPassword from "../../../components/Forms/Inputs/InputPassword";
 import Botao from "../../../components/Forms/Buttons/Button";
 
 export default function UsuarioLogin(){
@@ -43,9 +44,7 @@ export default function UsuarioLogin(){
                     </div>
 
                     <div className="mb-4">
-                        <InputText id="senha" titulo="Senha"
-                        placeholder="Digite a sua senha"
-                        tipo="text" valor={password} setValor={setPassword}/>
+                        <InputPassword password={password} setPassword={setPassword}/>
                     </div>
 
                     <div className="mb-4 flex items-center justify-end space-x-2">

@@ -4,6 +4,7 @@ import { useUserData } from "../../../services/hooks/useUserData";
 import { useAuth } from "../../../contexts/AuthProvider";
 
 import InputText from "../../../components/Forms/Inputs/InputText";
+import InputPassword from "../../../components/Forms/Inputs/InputPassword";
 import Botao from "../../../components/Forms/Buttons/Button";
 
 import LoadingLists from "../../../components/Loadings/LoadingLists";
@@ -80,9 +81,7 @@ export default function UsuarioEdit(){
                     </div>
 
                     <div className="mb-4">
-                        <InputText id="senha" titulo="nova senha"
-                        placeholder="Digite a sua nova senha"
-                        tipo="text" valor={password} setValor={setPassword}/>
+                        <InputPassword password={password} setPassword={setPassword}/>
                     </div>
 
                     <div>
