@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useUserData } from "../../../services/hooks/useUserData";
 import { useAuth } from "../../../contexts/AuthProvider";
 
+import LoadingOverlay from "../../../components/Loadings/LoadingOverlay";
 import InputText from "../../../components/Forms/Inputs/InputText";
 import Botao from "../../../components/Forms/Buttons/Button";
 
 export default function UsuarioLogin(){
+    const [loadingScreen, setLoadingScreen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,6 +20,7 @@ export default function UsuarioLogin(){
 
         console.log(credentials)
         try {
+            setLoadingScreen(true);
             await logarUsuario(credentials, login);
         } catch (error) {
             console.error('Erro no login:', error);
@@ -28,6 +31,7 @@ export default function UsuarioLogin(){
 
     return(
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <LoadingOverlay loading={loadingScreen} />
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
                 <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
 
