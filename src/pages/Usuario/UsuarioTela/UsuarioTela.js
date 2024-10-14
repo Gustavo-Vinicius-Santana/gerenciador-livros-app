@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from "../../../services/hooks/useUserData";
 
+import LoadingLists from '../../../components/Loadings/LoadingLists';
 import Botao from '../../../components/Forms/Buttons/Button';
 
 import { useAuth } from '../../../contexts/AuthProvider';
 
 export default function UsuarioTela(){
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("user@example.com");
-    const { deslogarUsuario, deletarUsuario, mensagem } = useUserData();
-
+    const { deslogarUsuario, deletarUsuario, buscarDadosUsuario, mensagem, loading } = useUserData();
     const { token } = useAuth();
+
+    const navigate = useNavigate();
+    const [ email, setEmail ] = useState('');
+    const [ name, setName ] = useState('');
+
     console.log(token)
+
+    useEffect(() => {
+        const fetchDados = async () => {
+            if (token) {
+                try {
+                    await buscarDadosUsuario(token, setName, setEmail);
+                } catch (error) {
+                    console.log("Erro ao buscar dados do usuário", error);
+                }
+            }
+        };
+
+        fetchDados();
+    }, [token]);
 
     const handleLogout = () => {
         try {
@@ -28,13 +45,13 @@ export default function UsuarioTela(){
         deletarUsuario(token);
     }
 
-
+    if (loading) return <LoadingLists />
 
     return(
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
                 <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Bem-vindo, Usuário!
+                    Bem-vindo, {name}!
                 </h1>
 
                 <p className="text-gray-600 mb-6">E-mail: <span className="font-medium">{email}</span></p>
