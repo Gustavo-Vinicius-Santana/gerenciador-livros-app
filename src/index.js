@@ -26,6 +26,10 @@ import AutorEdit from './pages/Autores/AutorEdit/AutorEdit';
 // paginas usuarios
 import UsuarioLogin from './pages/Usuario/UsuarioLogin/UsuarioLogin';
 import UsuarioCadastro from './pages/Usuario/UsuarioCadastro/UsuarioCadastro';
+import UsuarioTela from './pages/Usuario/UsuarioTela/UsuarioTela';
+import UsuarioEdit from './pages/Usuario/UsuarioEdit/UsuarioEdit';
+
+import { AuthProvider } from './contexts/AuthProvider';
 
 import {
   createBrowserRouter,
@@ -92,17 +96,26 @@ const router = createBrowserRouter([
     path: "/usuario/login",
     element: <UsuarioLogin />
   },
-
   {
     path: "/usuario/cadastro",
     element: <UsuarioCadastro />
-  }
+  },
+  {
+    path: "/usuario/tela",
+    element: <UsuarioTela />
+  },
+  {
+    path: "/usuario/editar",
+    element: <UsuarioEdit />
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Header />
+    <AuthProvider>
+      <Header />
       <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
