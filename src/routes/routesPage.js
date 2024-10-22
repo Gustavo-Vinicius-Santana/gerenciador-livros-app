@@ -4,6 +4,8 @@ import {
     createBrowserRouter,
   } from "react-router-dom";
 
+  import PrivateRoute from "./privateRoutes";
+
 import Inicial from '../pages/Inicial/Inicial';
 
 // paginas dos livros
@@ -45,11 +47,11 @@ const routerPages = createBrowserRouter([
     },
     {
       path: "/livro/cadastro",
-      element: <LivrosCadastro />,
+      element: <PrivateRoute element={<LivrosCadastro />}/>
     },
     {
       path: "/livro/editar/:id",
-      element: <LivroEdit />,
+      element: <PrivateRoute element={<LivroEdit />}/>
     },
 
     {
@@ -62,11 +64,11 @@ const routerPages = createBrowserRouter([
     },
     {
       path: "/editora/cadastro",
-      element: <EditoraCadastro />,
+      element: <PrivateRoute element={<EditoraCadastro />}/>
     },
     {
       path: "/editora/editar/:id",
-      element: <EditoraEdit />,
+      element: <PrivateRoute element={<EditoraEdit />}/>
     },
 
     {
@@ -79,11 +81,11 @@ const routerPages = createBrowserRouter([
     },
     {
       path: "/autor/cadastro",
-      element: <AutorCadastro />,
+      element: <PrivateRoute element={<AutorCadastro />}/>
     },
     {
       path: "/autor/editar/:id",
-      element: <AutorEdit />,
+      element: <PrivateRoute element={<AutorEdit />}/>,
     },
 
     {
@@ -96,11 +98,11 @@ const routerPages = createBrowserRouter([
     },
     {
       path: "/usuario/tela",
-      element: <UsuarioTela />
+      element: <PrivateRoute element={<UsuarioTela />}/>
     },
     {
       path: "/usuario/editar",
-      element: <UsuarioEdit />
+      element: <PrivateRoute element={<UsuarioEdit />}/>
     },
 ]);
 
