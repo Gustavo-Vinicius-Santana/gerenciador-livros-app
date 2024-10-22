@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown } from "flowbite-react";
 
+import { useAuth } from "../../contexts/AuthProvider";
+
+import LoadingLists from "../Loadings/LoadingLists";
 import UserIcon from "../UserIcon/UserIcon";
 
 export default function NavList({estilo}){
+    const { token } = useAuth();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            console.log("token dentro do efect", token)
+        setIsLoading(false);
+        };
+
+        checkToken();
+    }, [token]);
+
+    if (isLoading) {
+        return <div></div>
+    }
 
     return(
         <ul className={estilo}>
@@ -46,11 +64,11 @@ export default function NavList({estilo}){
                     <Dropdown.Item className="hover:underline" as="a" href={`/editora`}>mostrar todos</Dropdown.Item>
                 </Dropdown>
             </li>
+
             <li>
-                <a href={`/usuario/login`}>
+                <a href={token ? `/usuario/tela` : `/usuario/login`}>
                     <UserIcon />
                 </a>
-
             </li>
         </ul>
     )
