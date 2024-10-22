@@ -65,7 +65,7 @@ export default function UsuarioEdit(){
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <LoadingOverlay loading={loadingScreen} />
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-                <h2 className="text-2xl font-semibold text-center mb-6">Cadastro</h2>
+                <h2 className="text-2xl font-semibold text-center mb-6">Edição</h2>
 
                 <form onSubmit={handleEdit}>
                     <div className="mb-4">
